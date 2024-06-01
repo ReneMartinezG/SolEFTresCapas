@@ -1,0 +1,86 @@
+﻿@model IEnumerable<DataPersonas.Models.Personas>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+@if (TempData["error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["error"]
+    </div>
+}
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+
+<form action="/Home/Buscar" method="post">
+     <input type="text" name="buscador" placeholder="Buscar ...." />
+
+     <input type="submit" value="Buscar" />
+</form>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Paterno)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Edad)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Salario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaRegistro)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EstadoCivil.Nombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sexo.Nombre)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paterno)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Edad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salario)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaRegistro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoCivil.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sexo.Nombre)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.id })*@
+                <a href="/Home/Delete/@item.id" onclick="return confirm('Se va a eliminar a @item.Nombre ?')">Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>
